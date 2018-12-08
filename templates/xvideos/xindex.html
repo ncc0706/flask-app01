@@ -5,7 +5,17 @@
     <title>xvideos</title>
 </head>
 <body>
+<ul>
 
+    {% for video in videos %}
+
+    <li>
+        {{video.title}}
+        <img src="{{video.img}}" alt="">
+    </li>
+
+    {% endfor %}
+</ul>
 
 
 </body>
