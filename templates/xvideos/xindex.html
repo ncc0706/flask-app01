@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>xvideos</title>
+    <style type="text/css">
+
+        ul li {
+            list-style: none;
+            float: left;
+            margin-left: 5px;
+        }
+
+        ul li > a {
+            float: left;
+        }
+
+        ul li > span {
+            display: block;
+        }
+
+        .title {
+            display: inline-block;
+        }
+
+        .duration {
+            display: inline-block;
+            background: #777;
+            color: #fff;
+            border-radius: 3px;
+        }
+
+    </style>
 </head>
 <body>
 <ul>
@@ -10,8 +38,16 @@
     {% for video in videos %}
 
     <li>
-        {{video.title}}
-        <img src="{{video.img}}" alt="">
+
+        <a href="/xvideos/detail?url={{video.url}}">
+
+            <img src="{{video.img}}" alt="">
+        </a>
+
+        <div>
+            <span class="title">{{video.title}}</span>
+            <span class="duration">{{video.duration}}</span>
+        </div>
     </li>
 
     {% endfor %}
