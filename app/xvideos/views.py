@@ -32,6 +32,9 @@ def index():
 
     page = request.args.get('p')
 
+    page = 0
+    k = '直播'
+
     if k is None:
         sea = host
     else:

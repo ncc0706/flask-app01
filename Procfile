@@ -1,0 +1,1 @@
+web: gunicorn tiankuixing:app --log-file=-

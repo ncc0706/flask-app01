@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <title>详情页面</title>
     <style type="text/css">
-        div{
+        div {
             margin: 0 auto;
             text-align: center;
         }
-        .title{
-            display: block;
+
+        video {
+            width: 100%;
         }
+
+
     </style>
 </head>
 <body>
 
-<div >
-    <span class="title">{{video_title}}</span>
-    <video src="{{video_real_url}}" controls></video>
+<div>
+    <h2>{{video_title}}</h2>
+    <video src="{{video_real_url}}" controls preload="auto"></video>
 </div>
 
 </body>
