@@ -76,7 +76,7 @@ def index():
 
 
 @xvideos.route('/index.json', methods=['GET'])
-def index():
+def indexJson():
     """
     首页数据
     :return:
