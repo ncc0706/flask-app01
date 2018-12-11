@@ -1,12 +1,12 @@
-import urllib
-import re
-import requests
-
 import json
+import re
+import urllib
+
+import requests
+from bs4 import BeautifulSoup
+from flask import render_template, request, jsonify
 
 from . import xvideos
-from flask import render_template, request, jsonify
-from bs4 import BeautifulSoup
 
 
 class Video:
@@ -117,9 +117,7 @@ def indexJson():
     # print(request.args)
 
     hostname = 'https://www.xvideos.com'
-
     k = request.args.get('k')
-
     page = request.args.get('p')
 
     if k is not None:
@@ -128,7 +126,9 @@ def indexJson():
         hostname = "{}?k={}".format(hostname, keywords);
 
     if page is not None:
-        hostname = "{}?p={}".format(hostname, page);
+        page = int(page)
+        if page > 0:
+            hostname = "{}/new/{}".format(hostname, page);
 
     if page is not None and k is not None:
         hostname = "{}?k={}&p={}".format(hostname, k, page)
