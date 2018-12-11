@@ -169,7 +169,11 @@ def ok():
 
     # videos.append(Video('sd', 'sds', 'sds', 'sdsd').to_json())
 
-    videos.append(Video('sd', 'sds', 'sds', 'sdsd'))
+    videos.append(Video('sd1', 'sds', 'sds', 'sdsd'))
+    videos.append(Video('sd2', 'sds', 'sds', 'sdsd'))
+    videos.append(Video('sd3', 'sds', 'sds', 'sdsd'))
+    videos.append(Video('sd4', 'sds', 'sds', 'sdsd'))
+    videos.append(Video('sd5', 'sds', 'sds', 'sdsd'))
 
     # return json.dumps(videos, default=lambda obj: obj.__dict__)
     # return jsonify({video.to_json() for video in videos})
@@ -178,9 +182,11 @@ def ok():
     # return json.dumps(videos)
     # return jsonify({'result: '})
 
-    print(type(videos))
-
+    print(len(videos))
+    for v in videos:
+        print(v)
     # return jsonify({'results': video.to_json() for video in videos});
+    #  有问题.
     return jsonify({'videos': video.to_json() for video in videos});
 
 
