@@ -17,6 +17,28 @@ class Video:
         self.url = url
         self.duration = duration
 
+    def __jsonencode__(self):
+        """
+        方式一：
+        Serialize the object custom object
+        :return:
+        """
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+    def to_json(self):
+        """
+        方式二：
+        Serialize the object custom object
+        :return:
+        """
+        video = {
+            'title': self.title,
+            'img': self.img,
+            'url': self.url,
+            'duration': self.duration
+        }
+        return video
+
 
 class AdvancedJSONEncoder(json.JSONEncoder):
 
@@ -103,17 +125,17 @@ def indexJson():
     if k is not None:
         keywords = urllib.parse.unquote(k)
         print(keywords)
-        sea = "{}?k={}".format(hostname, keywords);
+        hostname = "{}?k={}".format(hostname, keywords);
 
     if page is not None:
-        sea = "{}?p={}".format(hostname, page);
+        hostname = "{}?p={}".format(hostname, page);
 
     if page is not None and k is not None:
-        sea = "{}?k={}&p={}".format(hostname, k, page)
+        hostname = "{}?k={}&p={}".format(hostname, k, page)
 
-    print(sea)
+    print(hostname)
 
-    r = requests.get(sea)
+    r = requests.get(hostname)
     # print(r.text)
     soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup.title)
@@ -143,11 +165,23 @@ def indexJson():
 
 @xvideos.route('/ok.json')
 def ok():
-    videos = []
+    videos = list()
+
+    # videos.append(Video('sd', 'sds', 'sds', 'sdsd').to_json())
 
     videos.append(Video('sd', 'sds', 'sds', 'sdsd'))
+
     # return json.dumps(videos, default=lambda obj: obj.__dict__)
-    return jsonify
+    # return jsonify({video.to_json() for video in videos})
+    # return jsonify({"results": video.to_json() for video in videos})
+
+    # return json.dumps(videos)
+    # return jsonify({'result: '})
+
+    print(type(videos))
+
+    # return jsonify({'results': video.to_json() for video in videos});
+    return jsonify({'videos': video.to_json() for video in videos});
 
 
 @xvideos.route("/detail")
