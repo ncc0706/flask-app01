@@ -2,8 +2,10 @@ import urllib
 import re
 import requests
 
+import json
+
 from . import xvideos
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from bs4 import BeautifulSoup
 
 
@@ -14,6 +16,14 @@ class Video:
         self.img = img
         self.url = url
         self.duration = duration
+
+
+class AdvancedJSONEncoder(json.JSONEncoder):
+
+    def default(self, o):
+        if isinstance(o, list):
+            return list(o)
+        return json.JSONEncoder.default(self, o)
 
 
 host = 'https://www.xvideos.com'
@@ -128,7 +138,16 @@ def indexJson():
             print(index, duration, mv_title, mv_url, mv_img)
         video = Video(mv_title, mv_img, mv_url, duration)
         videos.append(video)
-    return videos
+
+    return json.dumps(videos, default=lambda obj: obj.__dict__)
+
+
+@xvideos.route('/ok.json')
+def ok():
+    videos = []
+
+    videos.append(Video('sd', 'sds', 'sds', 'sdsd'))
+    return json.dumps(videos, default=lambda obj: obj.__dict__)
 
 
 @xvideos.route("/detail")
