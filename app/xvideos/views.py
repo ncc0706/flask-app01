@@ -60,23 +60,26 @@ def index():
 
     # print(request.args)
 
+    hostname = 'https://www.xvideos.com'
     k = request.args.get('k')
-
     page = request.args.get('p')
 
-    if k is None:
-        sea = host
-    else:
+    if k is not None:
         keywords = urllib.parse.unquote(k)
         print(keywords)
-        sea = "{}?k={}".format(host, keywords);
-    # 添加分页处理
-    if page is not None and k is not None:
-        sea = "{}&p={}".format(sea, page)
-    else:
-        sea = host
+        hostname = "{}?k={}".format(hostname, keywords);
 
-    r = requests.get(sea)
+    if page is not None:
+        page = int(page)
+        if page > 0:
+            hostname = "{}/new/{}".format(hostname, page);
+
+    if page is not None and k is not None:
+        hostname = "{}?k={}&p={}".format(hostname, k, page)
+
+    print(hostname)
+
+    r = requests.get(hostname)
     # print(r.text)
     soup = BeautifulSoup(r.text, 'html.parser')
     # print(soup.title)
